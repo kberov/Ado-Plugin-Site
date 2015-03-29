@@ -3,13 +3,19 @@ use Mojo::Base 'Ado::Plugin';
 our $VERSION = '0.01';
 
 sub register {
-    my ($self, $app, $config) = shift->initialise(@_);
-    # Do your magic here.
-    # You may want to add some helpers
-    # or some new complex routes definitions,
-    # or register this plugin as a template renderer.
-    # Look in Mojolicious and Ado sources for examples and inspiration.
-    return $self;
+  my ($self, $app, $config) = shift->initialise(@_);
+  $self->_amend_admin_menu();
+  return $self;
+}
+
+# Add menu items to the Admin menu in the Administration UI
+sub _amend_admin_menu {
+  my $self          = shift;
+  my $menu          = $self->app->admin_menu;
+  my $content_items = $menu->items->first(sub { $_[0]->title eq 'Content' })->items;
+  unshift @$content_items,
+    Ado::UI::Menu->new(title => 'Domains', icon => 'world', url => '/ado-domains');
+  return 1;
 }
 
 1;
@@ -20,20 +26,25 @@ __END__
 
 =head1 NAME
 
-Ado::Plugin::Site - an Ado Plugin that does foooooo.
+Ado::Plugin::Site - Manage your Sites.
 
 =head1 SYNOPSIS
 
-  # $ENV{MOJO_HOME}/etc/ado.config
+  # in $ENV{MOJO_HOME}/etc/ado.config
   plugins => {
     # other plugins here...
-    'Site',
+    'admin'
+    'site',
     # other plugins here...
   }
 
+   # GO to http://your-domain/ado
+   # Access /ado-domains and ado-sites from the main admin menu
+
 =head1 DESCRIPTION
 
-L<Ado::Plugin::Site> is an L<Ado> plugin.
+L<Ado::Plugin::Site> is an L<Ado> plugin that helps you to manage your domains
+and sites in the control panel provided by L<Ado::Plugin::Admin>.
 
 =head1 METHODS
 
@@ -48,6 +59,8 @@ Register plugin in L<Ado> application.
 
 =head1 SEE ALSO
 
+L<Ado::Plugin::Admin>,
+L<Ado::Control::Ado::Domains>, L<Ado::Control::Ado::Pages>
 L<Ado::Plugin>, L<Mojolicious::Guides::Growing>,
 L<Ado::Manual>, L<Mojolicious>,  L<http://mojolicio.us>.
 
