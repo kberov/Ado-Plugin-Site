@@ -1,18 +1,16 @@
-package Ado::Control::Domains;
-use Mojo::Base 'Ado::Control';
-
-our $VERSION = '0.01';
+package Ado::Control::Ado::Pages;
+use Mojo::Base 'Ado::Control::Ado';
 
 # Generate class on the fly from the database.
 # No worries - this is cheap, one-time generation.
 # See documentation for Ado::Model::class_from_table
 my $table_class = Ado::Model->table_to_class(
   namespace => 'Ado::Model',
-  table     => 'domains',
+  table     => 'pages',
   type      => 'TABLE'
 );
 
-# List resourses from table domains.
+# List resourses from table pages.
 sub list {
     my $c = shift;
     $c->require_formats('json','html') || return;
@@ -30,10 +28,10 @@ sub list {
     );
 
     $c->res->headers->content_range(
-        "domains $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
+        "pages $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
     $c->debug("rendering json and html only [$$args{limit}, $$args{offset}]");
 
-    #Used in template domains/list.html.ep
+    #Used in template pages/list.html.ep
     $c->stash('table_class',$table_class);
     #content negotiation
     my $list = $c->list_for_json(
@@ -46,7 +44,7 @@ sub list {
     );
 }
 
-# Creates a resource in table domains. A naive example.  
+# Creates a resource in table pages. A naive example.  
 sub create {
     my $c = shift;
     my $v = $c->validation;
@@ -75,7 +73,7 @@ sub create {
     );
 }
 
-# Reads a resource from table domains. A naive example.
+# Reads a resource from table pages. A naive example.
 sub read {
     my $c = shift;
     #This could be validated by a stricter route
@@ -89,7 +87,7 @@ sub read {
     );
 }
 
-# Updates a resource in table domains.  
+# Updates a resource in table pages.  
 sub update {
     my $c = shift;
     my $v = $c->validation;
@@ -111,7 +109,7 @@ sub update {
     );
 }
 
-# "Deletes" a resource from table domains.  
+# "Deletes" a resource from table pages.  
 sub delete {
     return shift->render(message => '"delete" is not implemented...');
 }
@@ -126,7 +124,7 @@ __END__
 
 =head1 NAME
 
-Ado::Control::Domains - a controller for resource domains.
+Ado::Control::Pages - a controller for resource pages.
 
 =head1 SYNOPSIS
 
