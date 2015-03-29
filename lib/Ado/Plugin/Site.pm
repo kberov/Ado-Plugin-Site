@@ -1,9 +1,12 @@
 package Ado::Plugin::Site;
 use Mojo::Base 'Ado::Plugin';
+File::Spec::Functions->import(qw(catfile catdir));
+
 our $VERSION = '0.01';
 
 sub register {
   my ($self, $app, $config) = shift->initialise(@_);
+  $self->_init_tables_and_data($config);
   $self->_amend_admin_menu();
   return $self;
 }
@@ -16,6 +19,23 @@ sub _amend_admin_menu {
   unshift @$content_items,
     Ado::UI::Menu->new(title => 'Domains', icon => 'world', url => '/ado-domains');
   return 1;
+}
+
+# Make sure the tables exist and are populated.
+sub _init_tables_and_data {
+  my ($self, $conf) = @_;
+  my $app = $self->app;
+  my $dbh = $app->dbix->dbh;
+
+  #dummy check
+  my $need_to_load_schema_and_data =
+    eval { $app->dbix->query('SELECT * FROM pages WHERE id>1')->hash } ? 0 : 1;
+  $app->log->debug($app->dumper($need_to_load_schema_and_data));
+  if ($need_to_load_schema_and_data) {
+    $app->do_sql_file(catfile($self->config_dir, $conf->{site_schema_sql_file}));
+    $app->do_sql_file(catfile($self->config_dir, $conf->{site_data_sql_file}));
+  }
+  return;
 }
 
 1;
@@ -45,6 +65,9 @@ Ado::Plugin::Site - Manage your Sites.
 
 L<Ado::Plugin::Site> is an L<Ado> plugin that helps you to manage your domains
 and sites in the control panel provided by L<Ado::Plugin::Admin>.
+
+B<Note:> This software is not funtional yet!
+
 
 =head1 METHODS
 
