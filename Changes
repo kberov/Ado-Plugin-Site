@@ -1,0 +1,13 @@
+Revision history for Ado-Plugin-Site
+
+0.01 2015-03-30
+  - Released first ALPHA version to CPAN
+  - Added links to /ado-domains and /ado-pages to main admin menu.
+  - Refactored automatically generated controllers to actually work.
+  - Added basic mandatory tests i.e. perl-critic.t, manifest.t
+    pod.t, pod-coverage.t, plugin/site-00.t
+  - Added needed files to release to CPAN
+  - Generated plugin using command
+    "ado generate adoplugin -n Site --crud -t 'domains,pages'"
+
+

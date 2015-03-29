@@ -1,4 +1,6 @@
 Build.PL
+Changes
+etc/plugins/site-sqlite-data.sql
 etc/plugins/site-sqlite-schema.sql
 etc/plugins/site.conf
 lib/Ado/Control/Ado/Domains.pm
@@ -13,6 +15,8 @@ README
 t/.perlcriticrc
 t/manifest.t
 t/perl-critic.t
+t/plugin/ado.conf
+t/plugin/ado_site.sqlite
 t/plugin/site-00.t
 t/pod-coverage.t
 t/pod.t

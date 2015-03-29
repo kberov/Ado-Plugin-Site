@@ -29,13 +29,14 @@ CREATE INDEX IF NOT EXISTS domains_published ON domains(published);
 CREATE TABLE IF NOT EXISTS pages (
   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   -- Parent page id
-  pid int(11) NOT NULL DEFAULT '0',
+  pid int(11) NOT NULL DEFAULT '0'
+    REFERENCES pages(id) ON UPDATE CASCADE ON DELETE CASCADE,
   -- Refrerence to domain.id to which this page belongs.
   domain_id int(11) NOT NULL DEFAULT '0' 
     REFERENCES domains(id) ON UPDATE CASCADE,
   -- Alias for the page which may be used instead of the id.
   alias varchar(32) NOT NULL DEFAULT '',
-  -- Regular,Folder, Site Root etc.
+  -- 'regular','folder','root' etc.
   page_type varchar(32) NOT NULL,
   sorting int(11) NOT NULL DEFAULT '1',
   -- MT code to display this page. Default template is used if not specified.
@@ -67,7 +68,6 @@ CREATE TABLE IF NOT EXISTS pages (
 CREATE UNIQUE INDEX IF NOT EXISTS pages_alias_in_domain_id ON pages(alias, domain_id);
 CREATE INDEX IF NOT EXISTS pages_user_id_group_id ON pages(user_id, group_id);
 CREATE INDEX IF NOT EXISTS pages_hidden ON pages(hidden);
-CREATE INDEX IF NOT EXISTS pages_pid ON pages(pid);
 
 /**
 DROP TABLE IF EXISTS domains;
