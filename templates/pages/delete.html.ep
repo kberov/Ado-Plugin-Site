@@ -1,0 +1,3 @@
+<article>
+  <section class="ui error form segment"><%= $message %></section>
+</article>

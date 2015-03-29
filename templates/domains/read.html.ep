@@ -1,0 +1,4 @@
+<article id="<%= $article->{id} %>">
+  <h1><%= $article->{title} %></h1>
+  <section><%= $article->{body} %></section>
+</article>
