@@ -1,0 +1,25 @@
+Build.PL
+etc/plugins/site-sqlite-schema.sql
+etc/plugins/site.conf
+lib/Ado/Control/Ado/Domains.pm
+lib/Ado/Control/Ado/Pages.pm
+lib/Ado/Plugin/Site.pm
+MANIFEST			This list of files
+MANIFEST.SKIP
+t/.perlcriticrc
+t/manifest.t
+t/perl-critic.t
+t/plugin/site-00.t
+t/pod-coverage.t
+t/pod.t
+templates/ado/domains/create.html.ep
+templates/ado/domains/delete.html.ep
+templates/ado/domains/list.html.ep
+templates/ado/domains/read.html.ep
+templates/ado/pages/create.html.ep
+templates/ado/pages/delete.html.ep
+templates/ado/pages/list.html.ep
+templates/ado/pages/read.html.ep
+README
+META.yml
+META.json

@@ -1,0 +1,46 @@
+NAME
+    Ado::Plugin::Site - Manage your Sites.
+
+SYNOPSIS
+      # in $ENV{MOJO_HOME}/etc/ado.config
+      plugins => {
+        # other plugins here...
+        'admin'
+        'site',
+        # other plugins here...
+      }
+
+       # GO to http://your-domain/ado
+       # Access /ado-domains and ado-sites from the main admin menu
+
+DESCRIPTION
+    Ado::Plugin::Site is an Ado plugin that helps you to manage your domains
+    and sites in the control panel provided by Ado::Plugin::Admin.
+
+METHODS
+    Ado::Plugin::Site inherits all methods from Ado::Plugin and implements
+    the following new ones.
+
+  register
+      $plugin->register(Ado->new);
+
+    Register plugin in Ado application.
+
+SEE ALSO
+    Ado::Plugin::Admin, Ado::Plugin, Mojolicious::Guides::Growing,
+    Ado::Manual, Mojolicious, <http://mojolicio.us>.
+
+AUTHOR
+    Your Name
+
+COPYRIGHT AND LICENSE
+    Copyright 2015 Your Name.
+
+    This program is free software, you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License v3 (LGPL-3.0).
+    You may copy, distribute and modify the software provided that
+    modifications are open source. However, software that includes the
+    license may release under a different license.
+
+    See http://opensource.org/licenses/lgpl-3.0.html for more information.
+
