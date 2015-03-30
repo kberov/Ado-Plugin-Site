@@ -29,11 +29,9 @@ CREATE INDEX IF NOT EXISTS domains_published ON domains(published);
 CREATE TABLE IF NOT EXISTS pages (
   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   -- Parent page id
-  pid int(11) NOT NULL DEFAULT '0'
-    REFERENCES pages(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  pid int(11) NOT NULL DEFAULT '0',
   -- Refrerence to domain.id to which this page belongs.
-  domain_id int(11) NOT NULL DEFAULT '0' 
-    REFERENCES domains(id) ON UPDATE CASCADE,
+  domain_id int(11) NOT NULL DEFAULT '0',
   -- Alias for the page which may be used instead of the id.
   alias varchar(32) NOT NULL DEFAULT '',
   -- 'regular','folder','root' etc.
@@ -48,11 +46,9 @@ CREATE TABLE IF NOT EXISTS pages (
   -- Page editing permissions.
   permissions varchar(10) NOT NULL DEFAULT '-rwxr-xr-xr',
   -- User for which the permissions apply (owner).
-  user_id int(11)
-    REFERENCES users(id) ON UPDATE CASCADE,
+  user_id int(11),
   -- Group for which the permissions apply.
-  group_id int(11) DEFAULT '1'
-    REFERENCES groups(id) ON UPDATE CASCADE,
+  group_id int(11) DEFAULT '1',
   tstamp int(11) NOT NULL DEFAULT '0',
   start int(11) NOT NULL DEFAULT '0',
   stop int(11) NOT NULL DEFAULT '0',
@@ -63,7 +59,11 @@ CREATE TABLE IF NOT EXISTS pages (
   -- Is this page deleted? 0=No, 1=Yes
   deleted tinyint(4) NOT NULL DEFAULT '0',
   -- Who modified this page the last time?
-  changed_by int(11) NOT NULL
+  changed_by int(11) NOT NULL,
+  FOREIGN KEY (pid)       REFERENCES pages(id)   ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (domain_id) REFERENCES domains(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (user_id)   REFERENCES users(id)   ON UPDATE CASCADE,
+  FOREIGN KEY (group_id)  REFERENCES groups(id)  ON UPDATE CASCADE
 );
 CREATE UNIQUE INDEX IF NOT EXISTS pages_alias_in_domain_id ON pages(alias, domain_id);
 CREATE INDEX IF NOT EXISTS pages_user_id_group_id ON pages(user_id, group_id);
