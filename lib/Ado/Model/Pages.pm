@@ -1,148 +1,132 @@
-package Ado::Model::Pages; #A table/row class
+package Ado::Model::Pages;    #A table/row class
 use 5.010001;
 use strict;
 use warnings;
 use utf8;
 use parent qw(Ado::Model);
 
-sub is_base_class{return 0}
+sub is_base_class { return 0 }
 my $TABLE_NAME = 'pages';
 
-sub TABLE {return $TABLE_NAME}
-sub PRIMARY_KEY{return 'id'}
+sub TABLE       { return $TABLE_NAME }
+sub PRIMARY_KEY { return 'id' }
 my $COLUMNS = [
-             'id',
-             'pid',
-             'domain_id',
-             'alias',
-             'page_type',
-             'sorting',
-             'template',
-             'cache',
-             'expiry',
-             'permissions',
-             'user_id',
-             'group_id',
-             'tstamp',
-             'start',
-             'stop',
-             'published',
-             'hidden',
-             'deleted',
-             'changed_by'
-           ];
+  'id',        'pid',         'domain_id', 'alias',
+  'page_type', 'sorting',     'template',  'cache',
+  'expiry',    'permissions', 'user_id',   'group_id',
+  'tstamp',    'start',       'stop',      'published',
+  'hidden',    'deleted',     'changed_by'
+];
 
-sub COLUMNS {return $COLUMNS}
+sub COLUMNS { return $COLUMNS }
 my $ALIASES = {};
 
-sub ALIASES {return $ALIASES}
+sub ALIASES { return $ALIASES }
 my $CHECKS = {
-            'expiry' => {
-                          'required' => 1,
-                          'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                          'defined' => 1,
-                          'default' => '86400'
-                        },
-            'user_id' => {
-                           'allow' => qr/(?^x:^-?\d{1,11}$)/
-                         },
-            'id' => {
-                      'allow' => qr/(?^x:^-?\d{1,}$)/,
-                      'required' => 1,
-                      'defined' => 1
-                    },
-            'published' => {
-                             'required' => 1,
-                             'allow' => qr/(?^x:^-?\d{1,1}$)/,
-                             'defined' => 1,
-                             'default' => '0'
-                           },
-            'stop' => {
-                        'default' => '0',
-                        'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                        'required' => 1,
-                        'defined' => 1
-                      },
-            'pid' => {
-                       'default' => '0',
-                       'defined' => 1,
-                       'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                       'required' => 1
-                     },
-            'page_type' => {
-                             'allow' => sub { "DUMMY" },
-                             'required' => 1,
-                             'defined' => 1
-                           },
-            'cache' => {
-                         'allow' => qr/(?^x:^-?\d{1,1}$)/,
-                         'defined' => 1,
-                         'required' => 1,
-                         'default' => '0'
-                       },
-            'alias' => {
-                         'default' => '',
-                         'defined' => 1,
-                         'allow' => sub { "DUMMY" },
-                         'required' => 1
-                       },
-            'permissions' => {
-                               'default' => '-rwxr-xr-xr',
-                               'allow' => sub { "DUMMY" },
-                               'defined' => 1,
-                               'required' => 1
-                             },
-            'changed_by' => {
-                              'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                              'required' => 1,
-                              'defined' => 1
-                            },
-            'sorting' => {
-                           'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                           'required' => 1,
-                           'defined' => 1,
-                           'default' => '1'
-                         },
-            'tstamp' => {
-                          'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                          'defined' => 1,
-                          'required' => 1,
-                          'default' => '0'
-                        },
-            'hidden' => {
-                          'default' => '1',
-                          'required' => 1,
-                          'allow' => qr/(?^x:^-?\d{1,1}$)/,
-                          'defined' => 1
-                        },
-            'start' => {
-                         'default' => '0',
-                         'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                         'defined' => 1,
-                         'required' => 1
-                       },
-            'group_id' => {
-                            'default' => '1',
-                            'allow' => qr/(?^x:^-?\d{1,11}$)/
-                          },
-            'deleted' => {
-                           'default' => '0',
-                           'required' => 1,
-                           'allow' => qr/(?^x:^-?\d{1,4}$)/,
-                           'defined' => 1
-                         },
-            'domain_id' => {
-                             'allow' => qr/(?^x:^-?\d{1,11}$)/,
-                             'defined' => 1,
-                             'required' => 1,
-                             'default' => '0'
-                           },
-            'template' => {
-                            'allow' => sub { "DUMMY" }
-                          }
-          };
+  'expiry' => {
+    'required' => 1,
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'defined'  => 1,
+    'default'  => '86400'
+  },
+  'user_id' => {'allow' => qr/(?^x:^-?\d{1,11}$)/},
+  'id'      => {
+    'allow'    => qr/(?^x:^-?\d{1,}$)/,
+    'required' => 1,
+    'defined'  => 1
+  },
+  'published' => {
+    'required' => 1,
+    'allow'    => qr/(?^x:^-?\d{1,1}$)/,
+    'defined'  => 1,
+    'default'  => '0'
+  },
+  'stop' => {
+    'default'  => '0',
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'required' => 1,
+    'defined'  => 1
+  },
+  'pid' => {
+    'default'  => '0',
+    'defined'  => 1,
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'required' => 1
+  },
+  'page_type' => {
+    'allow'    => sub {"DUMMY"},
+    'required' => 1,
+    'defined'  => 1
+  },
+  'cache' => {
+    'allow'    => qr/(?^x:^-?\d{1,1}$)/,
+    'defined'  => 1,
+    'required' => 1,
+    'default'  => '0'
+  },
+  'alias' => {
+    'default'  => '',
+    'defined'  => 1,
+    'allow'    => sub {"DUMMY"},
+    'required' => 1
+  },
+  'permissions' => {
+    'default'  => '-rwxr-xr-xr',
+    'allow'    => sub {"DUMMY"},
+    'defined'  => 1,
+    'required' => 1
+  },
+  'changed_by' => {
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'required' => 1,
+    'defined'  => 1
+  },
+  'sorting' => {
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'required' => 1,
+    'defined'  => 1,
+    'default'  => '1'
+  },
+  'tstamp' => {
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'defined'  => 1,
+    'required' => 1,
+    'default'  => '0'
+  },
+  'hidden' => {
+    'default'  => '1',
+    'required' => 1,
+    'allow'    => qr/(?^x:^-?\d{1,1}$)/,
+    'defined'  => 1
+  },
+  'start' => {
+    'default'  => '0',
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'defined'  => 1,
+    'required' => 1
+  },
+  'group_id' => {
+    'default' => '1',
+    'allow'   => qr/(?^x:^-?\d{1,11}$)/
+  },
+  'deleted' => {
+    'default'  => '0',
+    'required' => 1,
+    'allow'    => qr/(?^x:^-?\d{1,4}$)/,
+    'defined'  => 1
+  },
+  'domain_id' => {
+    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
+    'defined'  => 1,
+    'required' => 1,
+    'default'  => '0'
+  },
+  'template' => {
+    'allow' => sub {"DUMMY"}
+  }
+};
 
-sub CHECKS {return $CHECKS}
+sub CHECKS { return $CHECKS }
 
 #returns a list of objects with $self->pid == $self->id
 sub children {
@@ -151,10 +135,11 @@ sub children {
   my $class = ref($self);
 
   #TODO: add permissions etc..
-  state $SQL = $class->SQL('SELECT').' WHERE pid=?';
-  return $self->{children} = [$class->query($SQL,$self->id)];
+  state $SQL = $class->SQL('SELECT') . ' WHERE pid=?';
+  return $self->{children} = [$class->query($SQL, $self->id)];
 }
 __PACKAGE__->QUOTE_IDENTIFIERS(0);
+
 #__PACKAGE__->BUILD;#build accessors during load
 
 1;

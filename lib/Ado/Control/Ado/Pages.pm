@@ -12,36 +12,16 @@ my %t_class_params = (
 sub list {
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(%t_class_params);
-  $c->require_formats('json', 'html') || return;
-  my $args = Params::Check::check(
-    { limit => {
-        allow => sub { $_[0] =~ /^\d+$/ ? 1 : ($_[0] = 20); }
-      },
-      offset => {
-        allow => sub { $_[0] =~ /^\d+$/ ? 1 : defined($_[0] = 0); }
-      },
-    },
-    { limit  => $c->req->param('limit')  || 20,
-      offset => $c->req->param('offset') || 0,
-    }
-  );
+  $c->require_formats('html') || return;
 
-  $c->res->headers->content_range(
-    "pages $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
-  $c->debug("rendering json and html only [$$args{limit}, $$args{offset}]");
-  $c->debug('$table_class:' . $table_class);
-  $c->debug('Ado::Model::Pages loaded:'
-      . (exists $INC{Mojo::Util::class_to_path($table_class)}));
 
   #Used in template pages/list.html.ep
-  $c->stash('table_class', $table_class);
+  $c->stash(table_class => $table_class, title => $c->l('Pages'));
 
   #content negotiation
-  my $list = $c->list_for_json([$$args{limit}, $$args{offset}],
-    [$table_class->select_range($$args{limit}, $$args{offset})]);
   return $c->respond_to(
-    json => $list,
-    html => {list => $list}
+    json => sub { return $table_class->find(1)->children() },    #think about this later
+    html => {list => $table_class->find(1)->children()}
   );
 }
 
