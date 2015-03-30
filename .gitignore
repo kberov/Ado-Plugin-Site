@@ -20,4 +20,6 @@ Ado-*.tar.gz
 etc/ado_*.sqlite
 /tags
 .tags*
+*-shm
+*-wal
 
