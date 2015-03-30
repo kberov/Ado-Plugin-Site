@@ -1,14 +1,17 @@
 package Ado::Control::Ado::Domains;
 use Mojo::Base 'Ado::Control::Ado';
 
+#Parameters to generate a model class on the fly
+my %t_class_params = (
+  namespace => 'Ado::Model',
+  table     => 'domains',
+  type      => 'TABLE'
+);
+
 # List resourses from table domains.
 sub list {
   my $c = shift;
-  state $table_class = Ado::Model->table_to_class(
-    namespace => 'Ado::Model',
-    table     => 'domains',
-    type      => 'TABLE'
-  );
+  state $table_class = Ado::Model->table_to_class(%t_class_params);
   $c->require_formats('json', 'html') || return;
   my $args = Params::Check::check(
     { limit => {
@@ -42,11 +45,7 @@ sub list {
 # Creates a resource in table domains. A naive example.
 sub create {
   my $c = shift;
-  state $table_class = Ado::Model->table_to_class(
-    namespace => 'Ado::Model',
-    table     => 'domains',
-    type      => 'TABLE'
-  );
+  state $table_class = Ado::Model->table_to_class(%t_class_params);
   my $v = $c->validation;
   return $c->render unless $v->has_data;
 
@@ -77,11 +76,7 @@ sub create {
 # Reads a resource from table domains. A naive example.
 sub read {    ##no critic 'Subroutines::ProhibitBuiltinHomonyms'
   my $c = shift;
-  state $table_class = Ado::Model->table_to_class(
-    namespace => 'Ado::Model',
-    table     => 'domains',
-    type      => 'TABLE'
-  );
+  state $table_class = Ado::Model->table_to_class(%t_class_params);
 
   #This could be validated by a stricter route
   my ($id) = $c->stash('id') =~ /(\d+)/;
@@ -97,11 +92,7 @@ sub read {    ##no critic 'Subroutines::ProhibitBuiltinHomonyms'
 # Updates a resource in table domains.
 sub update {
   my $c = shift;
-  state $table_class = Ado::Model->table_to_class(
-    namespace => 'Ado::Model',
-    table     => 'domains',
-    type      => 'TABLE'
-  );
+  state $table_class = Ado::Model->table_to_class(%t_class_params);
   my $v    = $c->validation;
   my ($id) = $c->stash('id') =~ /(\d+)/;
   my $res  = $table_class->find($id);
