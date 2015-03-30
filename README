@@ -17,6 +17,8 @@ DESCRIPTION
     Ado::Plugin::Site is an Ado plugin that helps you to manage your domains
     and sites in the control panel provided by Ado::Plugin::Admin.
 
+    Note: This software is not funtional yet!
+
 METHODS
     Ado::Plugin::Site inherits all methods from Ado::Plugin and implements
     the following new ones.
@@ -27,8 +29,9 @@ METHODS
     Register plugin in Ado application.
 
 SEE ALSO
-    Ado::Plugin::Admin, Ado::Plugin, Mojolicious::Guides::Growing,
-    Ado::Manual, Mojolicious, <http://mojolicio.us>.
+    Ado::Plugin::Admin, Ado::Control::Ado::Domains, Ado::Control::Ado::Pages
+    Ado::Plugin, Mojolicious::Guides::Growing, Ado::Manual, Mojolicious,
+    <http://mojolicio.us>.
 
 AUTHOR
     Your Name

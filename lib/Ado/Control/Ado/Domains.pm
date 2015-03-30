@@ -6,7 +6,7 @@ sub list {
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(
     namespace => 'Ado::Model',
-    table     => 'pages',
+    table     => 'domains',
     type      => 'TABLE'
   );
   $c->require_formats('json', 'html') || return;
@@ -44,7 +44,7 @@ sub create {
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(
     namespace => 'Ado::Model',
-    table     => 'pages',
+    table     => 'domains',
     type      => 'TABLE'
   );
   my $v = $c->validation;
@@ -79,7 +79,7 @@ sub read {    ##no critic 'Subroutines::ProhibitBuiltinHomonyms'
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(
     namespace => 'Ado::Model',
-    table     => 'pages',
+    table     => 'domains',
     type      => 'TABLE'
   );
 
@@ -99,7 +99,7 @@ sub update {
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(
     namespace => 'Ado::Model',
-    table     => 'pages',
+    table     => 'domains',
     type      => 'TABLE'
   );
   my $v    = $c->validation;

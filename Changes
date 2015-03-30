@@ -1,5 +1,11 @@
 Revision history for Ado-Plugin-Site
 
+
+0.02 2015-03-30
+  - Fixed copy-paste errors where wrongly refering to table pages
+    instead to domains.
+  - FIxed typos in documentation.
+
 0.01 2015-03-30
   - Released first ALPHA version to CPAN.
   - Added links to /ado-domains and /ado-pages to main admin menu.

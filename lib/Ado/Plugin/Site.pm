@@ -2,7 +2,7 @@ package Ado::Plugin::Site;
 use Mojo::Base 'Ado::Plugin';
 File::Spec::Functions->import(qw(catfile catdir));
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub register {
   my ($self, $app, $config) = shift->initialise(@_);
@@ -89,11 +89,11 @@ L<Ado::Manual>, L<Mojolicious>,  L<http://mojolicio.us>.
 
 =head1 AUTHOR
 
-Your Name
+Krasimir Berov
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2015 Your Name.
+Copyright 2015 Krasimir Berov.
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 
