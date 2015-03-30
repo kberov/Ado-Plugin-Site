@@ -144,6 +144,16 @@ my $CHECKS = {
 
 sub CHECKS {return $CHECKS}
 
+#returns a list of objects with $self->pid == $self->id
+sub children {
+  my $self = shift;
+  return $self->{children} if $self->{children};
+  my $class = ref($self);
+
+  #TODO: add permissions etc..
+  state $SQL = $class->SQL('SELECT').' WHERE pid=?';
+  return $self->{children} = [$class->query($SQL,$self->id)];
+}
 __PACKAGE__->QUOTE_IDENTIFIERS(0);
 #__PACKAGE__->BUILD;#build accessors during load
 
@@ -159,7 +169,11 @@ A class for TABLE pages in schema main
 
 =head1 SYNOPSIS
 
+  Ado::Model::Pages->create(domain_id=>1,alias=>'home',page_type=>'root');
+
+
 =head1 DESCRIPTION
+
 
 =head1 COLUMNS
 
@@ -205,15 +219,38 @@ Each column from table C<pages> has an accessor method in this class.
 
 =head1 ALIASES
 
+None.
+
+=head1 METHODS
+
+=head2 children
+
+Returns a list L<Ado::Model::Pages> objects C<WHERE> C<$self-E<gt>pid> == C<$self-E<gt>id>
+
 =head1 GENERATOR
 
 L<DBIx::Simple::Class::Schema>
 
 =head1 SEE ALSO
+
 L<Ado::Model>, L<DBIx::Simple::Class>, L<DBIx::Simple::Class::Schema>
+
 
 =head1 AUTHOR
 
-berov
+Красимир Беров (Krasimir Berov)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
+
+This program is free software, you can redistribute it and/or
+modify it under the terms of the 
+GNU Lesser General Public License v3 (LGPL-3.0).
+You may copy, distribute and modify the software provided that 
+modifications are open source. However, software that includes 
+the license may release under a different license.
+
+See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
