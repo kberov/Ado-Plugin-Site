@@ -15,8 +15,9 @@ chmod(oct('0600'), catfile($ENV{MOJO_HOME}, 'ado_site.sqlite'))
   or plan skip_all => 'ado_site.sqlite cannot be made writable!';
 
 
-my $t   = Test::Mojo->new('Ado');
-my $app = $t->app;
+my $t    = Test::Mojo->new('Ado');
+my $app  = $t->app;
+my $dbix = $app->dbix;
 ok($app->plugin('site'), 'site plugin loaded.');
 my $class = 'Ado::Plugin::Site';
 isa_ok($class, 'Ado::Plugin');
@@ -56,5 +57,7 @@ subtest run_plugin_with_own_ado_config_and_database => sub {
 
 };    #end run_plugin_with_own_ado_config_and_database
 
-
+ok($dbix->query('drop table pages'),   'drop pages');
+ok($dbix->query('drop table domains'), 'drop domains');
+ok($dbix->query('vacuum'),             'vacuum');
 done_testing();
