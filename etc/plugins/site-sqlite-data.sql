@@ -13,7 +13,7 @@ INSERT OR IGNORE INTO pages
 VALUES(0,0,0,'root','root',1,NULL,0,86400,'-rwxr-xr-xr',3,3,1,1,1,0,1,1,3);
 PRAGMA foreign_keys = ON;
 INSERT OR IGNORE INTO pages
-VALUES(1,1,1,'home','root',1,NULL,0,86400,'-rwxr-xr-xr',3,3,0,0,0,0,0,0,3);
+VALUES(1,0,1,'home','root',1,NULL,0,86400,'-rwxr-xr-xr',3,3,0,0,0,0,0,0,3);
 INSERT OR IGNORE INTO pages
 VALUES(2,1,1,'about','regular',1,NULL,0,86400,'-rwxr-xr-xr',3,3,1427662919,1427662919,0,0,0,0,3);
 INSERT OR IGNORE INTO pages
