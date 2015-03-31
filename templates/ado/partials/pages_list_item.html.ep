@@ -1,19 +1,41 @@
 %# pages_list_item.html.ep
 % state $icons = {root => 'sitemap', regular => 'file text',folder => 'folder'};
 % my $type = $page->page_type;
+% my $alias = $page->alias;
+% my $id = $page->id;
 
-  <div class="item" id="p<%= $page->id %>">
+  <div class="page item" id="p<%= $id %>">
+    <div class="right floated tiny ui button">
+      <i class="configure icon"></i><i class="dropdown icon"></i>
+    </div>
+    <span class="ui special popup vertical styled menu">
+      <h4 class="header item"><%= l('Manage page "[_1]"', $alias) %></h4>
     % if($type eq 'folder' || $type eq 'root'){
-    <div class="right floated tiny ui button"><i class="configure icon"></i><i class="dropdown icon"></i></div>
+      <span class="create link item"
+        data-pid="<%= $id %>" data-alias="<%= $alias %>"
+        data-href="/ado-pages/create/<%= $id %>">
+        <i class="plus file outline icon"></i>
+        <%= l('Add a page under "[_1]"!', $alias) %></span>
     % }
+      <span class="update link item"
+        data-id="<%= $id %>" data-alias="<%= $alias %>"
+        data-href="/ado-pages/update/<%= $id %>">
+        <i class="edit icon"></i>
+        <%= l('Edit page "[_1]"!', $alias) %></span>
+      <span class="delete link item"
+        data-id="<%= $id %>" data-alias="<%= $alias %>"
+        data-href="/ado-pages/delete/<%= $id %>">
+        <i class="erase icon"></i>
+        <%= l('Delete page "[_1]"!', $alias) %></span>
+    </span>
     <i class="<%= $icons->{$type}  %> icon"></i>
-    <div class="content"><%= $page->alias %></div>
+    <div class="content"><%= $alias %></div>
     % my $children = $page->children;
     % if(scalar @$children){
-      <div class="ui divided list" id="pages-list<%= $page->id %>">
+      <div class="ui divided list" id="pages-list<%= $id %>">
       % foreach my $p (@$children){
         %= include 'ado/partials/pages_list_item', page => $p;
       % }
-      </div><!-- div class="ui divided list" id="pages-list<%= $page->id %>" -->
+      </div><!-- div class="ui divided list" id="pages-list<%= $id %>" -->
     %}
-  </div><!-- class="item" id="p<%= $page->id %>" -->
+  </div><!-- class="item" id="p<%= $id %>" -->

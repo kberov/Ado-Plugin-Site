@@ -7,3 +7,30 @@
 %= include 'ado/partials/pages_list_item', page => $root_page;
 </div><!-- div class="ui divided list" id="pages-list<%= $root_page->id %>" -->
       </div><!-- div id="tab_body" -->
+
+<div id="create_page" class="ui small modal">
+  <i class="close icon"></i>
+  <h3 class="header"><%= l('Create Page!') %></h3>
+  <form class="ui small form segment" method="POST" action="">
+
+    <div class="two fields">
+      <div class="field">
+        <label><%= l('Alias') %></label>
+        <input placeholder="Alias" type="text" name="alias" />
+      </div>
+      <div class="field">
+        <label><%= l('Page type') %></label>
+        <select class="ui dropdown" name="page_type">
+          <!-- root pages will be created only automatically with new domains.
+            Only one root page is allowed per domain. 
+          <option value="root"><%= l('Root page') %></option> -->
+          <option value="regular"><%= l('Regular') %></option>
+          <option value="folder"><%= l('Folder') %></option>
+        </select>
+      </div>
+
+    </div><!-- div class="two fields" -->
+    <button type="submit" class="ui positive submit button"><%= l('Create') %></button>      
+  </form>
+</div><!-- div id="create_page" -->
+<script src="plugins/site/pages.js"></script>
