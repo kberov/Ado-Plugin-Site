@@ -1,0 +1,19 @@
+%# pages_list_item.html.ep
+% state $icons = {root => 'sitemap', regular => 'file text',folder => 'folder'};
+% my $type = $page->page_type;
+
+  <div class="item" id="p<%= $page->id %>">
+    % if($type eq 'folder' || $type eq 'root'){
+    <div class="right floated tiny ui button"><i class="configure icon"></i><i class="dropdown icon"></i></div>
+    % }
+    <i class="<%= $icons->{$type}  %> icon"></i>
+    <div class="content"><%= $page->alias %></div>
+    % my $children = $page->children;
+    % if(scalar @$children){
+      <div class="ui divided list" id="pages-list<%= $page->id %>">
+      % foreach my $p (@$children){
+        %= include 'ado/partials/pages_list_item', page => $p;
+      % }
+      </div><!-- div class="ui divided list" id="pages-list<%= $page->id %>" -->
+    %}
+  </div><!-- class="item" id="p<%= $page->id %>" -->

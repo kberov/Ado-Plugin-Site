@@ -12,16 +12,20 @@ my %t_class_params = (
 sub list {
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(%t_class_params);
-  $c->require_formats('html') || return;
-
+  $c->require_formats('json', 'html') || return;
+  my $id = $c->req->param('id') // '';
+  $id = 1 unless ($id =~ m/^\d+$/);
 
   #Used in template pages/list.html.ep
   $c->stash(table_class => $table_class, title => $c->l('Pages'));
+  my $root_page = $table_class->find($id);
 
   #content negotiation
   return $c->respond_to(
-    json => sub { return $table_class->find(1)->children() },    #think about this later
-    html => {list => $table_class->find(1)->children()}
+    json => {
+      root_page => $root_page->data,    #think about JSON responses later
+    },
+    html => {root_page => $root_page}
   );
 }
 

@@ -1,20 +1,9 @@
-% my $columns = $table_class->COLUMNS;
-<table>
-  <thead>
-    <tr>
-    % foreach my $column( @$columns ){
-      <th><%= $column %></th>
-    % }
-    </tr>
-  </thead>
-  <tbody>
-    % foreach my $row (@{$list->{json}{data}}) {
-    <tr>
-      % foreach my $column( @$columns ){
-      <td><%= $row->{$column} %></td>
-      % }
-    </tr>
-    % }
-  </tbody>
-    %#== $c->dumper($list);
-</table>
+
+      <div id="tab_title" class="ui top attached tabular menu">
+          <div class="active header item"><%= title %></div>
+      </div>
+      <div id="tab_body" class="ui bottom attached active tab segment">
+<div class="ui divided list" id="pages-list<%= $root_page->id %>">
+%= include 'ado/partials/pages_list_item', page => $root_page;
+</div><!-- div class="ui divided list" id="pages-list<%= $root_page->id %>" -->
+      </div><!-- div id="tab_body" -->
