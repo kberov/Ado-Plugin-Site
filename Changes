@@ -1,7 +1,11 @@
 Revision history for Ado-Plugin-Site
 
 
-0.02 2015-03-30
+0.02 2015-03-31
+  - We have nice implementation of a page-tree at
+    /ado-pages/list and nice and lame jQuery application
+    for this screen.
+  - We have draft implementation of /ado-pages/create/:pid.
   - Fixed copy-paste errors where wrongly refering to table pages
     instead to domains.
   - FIxed typos in documentation.
