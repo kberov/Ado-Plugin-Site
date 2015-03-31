@@ -1,0 +1,2 @@
+%# templates/ado/pages/update.html.ep
+not implemented update for id <%= $id %>
