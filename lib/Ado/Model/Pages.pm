@@ -24,28 +24,18 @@ my $ALIASES = {};
 sub ALIASES { return $ALIASES }
 my $CHECKS = {
   'expiry' => {
-    'required' => 1,
-    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
-    'defined'  => 1,
-    'default'  => '86400'
+    'allow'   => qr/(?^x:^-?\d{1,11}$)/,
+    'default' => '86400'
   },
-  'user_id' => {'allow' => qr/(?^x:^-?\d{1,11}$)/},
-  'id'      => {
-    'allow'    => qr/(?^x:^-?\d{1,}$)/,
-    'required' => 1,
-    'defined'  => 1
-  },
+  'user_id'   => {'allow' => qr/(?^x:^-?\d{1,11}$)/},
+  'id'        => {'allow' => qr/(?^x:^-?\d{1,}$)/,},
   'published' => {
-    'required' => 1,
-    'allow'    => qr/(?^x:^-?\d{1,1}$)/,
-    'defined'  => 1,
-    'default'  => '0'
+    'allow'   => qr/(?^x:^-?\d{1,1}$)/,
+    'default' => '0'
   },
   'stop' => {
-    'default'  => '0',
-    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
-    'required' => 1,
-    'defined'  => 1
+    'default' => '0',
+    'allow'   => qr/(?^x:^-?\d{1,11}$)/,
   },
   'pid' => {
     'default'  => '0',
@@ -54,25 +44,21 @@ my $CHECKS = {
     'required' => 1
   },
   'page_type' => {
-    'allow'    => sub {"DUMMY"},
+    'allow'    => qr/(regular|root|folder)/,
     'required' => 1,
     'defined'  => 1
   },
   'cache' => {
-    'allow'    => qr/(?^x:^-?\d{1,1}$)/,
-    'defined'  => 1,
-    'required' => 1,
-    'default'  => '0'
+    'allow'   => qr/(?^x:^-?\d{1,1}$)/,
+    'default' => '0'
   },
   'alias' => {
-    'default'  => '',
     'defined'  => 1,
-    'allow'    => sub {"DUMMY"},
+    'allow'    => qr/^\w{3,50}$/,
     'required' => 1
   },
   'permissions' => {
     'default'  => '-rwxr-xr-xr',
-    'allow'    => sub {"DUMMY"},
     'defined'  => 1,
     'required' => 1
   },
@@ -82,10 +68,8 @@ my $CHECKS = {
     'defined'  => 1
   },
   'sorting' => {
-    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
-    'required' => 1,
-    'defined'  => 1,
-    'default'  => '1'
+    'allow'   => qr/(?^x:^-?\d{1,11}$)/,
+    'default' => '1'
   },
   'tstamp' => {
     'allow'    => qr/(?^x:^-?\d{1,11}$)/,
@@ -94,32 +78,24 @@ my $CHECKS = {
     'default'  => '0'
   },
   'hidden' => {
-    'default'  => '1',
-    'required' => 1,
-    'allow'    => qr/(?^x:^-?\d{1,1}$)/,
-    'defined'  => 1
+    'default' => '1',
+    'allow'   => qr/(?^x:^-?\d{1,1}$)/,
   },
   'start' => {
-    'default'  => '0',
-    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
-    'defined'  => 1,
-    'required' => 1
+    'default' => '0',
+    'allow'   => qr/(?^x:^-?\d{1,11}$)/,
   },
   'group_id' => {
     'default' => '1',
     'allow'   => qr/(?^x:^-?\d{1,11}$)/
   },
   'deleted' => {
-    'default'  => '0',
-    'required' => 1,
-    'allow'    => qr/(?^x:^-?\d{1,4}$)/,
-    'defined'  => 1
+    'default' => '0',
+    'allow'   => qr/(?^x:^-?\d{1,4}$)/,
   },
   'domain_id' => {
-    'allow'    => qr/(?^x:^-?\d{1,11}$)/,
-    'defined'  => 1,
-    'required' => 1,
-    'default'  => '0'
+    'allow'   => qr/(?^x:^-?\d{1,11}$)/,
+    'default' => 1
   },
   'template' => {
     'allow' => sub {"DUMMY"}

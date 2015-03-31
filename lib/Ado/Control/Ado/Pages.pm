@@ -13,6 +13,8 @@ sub list {
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(%t_class_params);
   $c->require_formats('json', 'html') || return;
+
+  #Todo: guess page by looking  for accessible by this user root pages
   my $id = $c->req->param('id') // '';
   $id = 1 unless ($id =~ m/^\d+$/);
 
@@ -29,39 +31,60 @@ sub list {
   );
 }
 
+
 # Creates a resource in table pages. A naive example.
 sub create {
   my $c = shift;
-  state $table_class = Ado::Model->table_to_class(%t_class_params);
-  my $v = $c->validation;
-  return $c->render unless $v->has_data;
+  state $table_class         = Ado::Model->table_to_class(%t_class_params);
+  state $validation_template = {
+    alias     => {required => 1, size => [3, 50]},
+    page_type => {in       => [qw(regular folder)]},
+  };
 
-  $v->required('title')->size(3, 50);
-  $v->required('body')->size(3, 1 * 1024 * 1024);    #1MB
+  my $vresult = $c->validate_input($validation_template);
+
+  #400 Bad Request
+  if ($vresult->{errors}) {
+    $c->app->log->error('Validation error:' . $c->dumper($vresult));
+    return $c->render(
+      status => $vresult->{json}{code},
+      json   => $vresult->{json}
+    );
+  }
+
+  my $user = $c->user;
   my $res;
   eval {
     $res = $table_class->create(
-      title    => $v->param('title'),
-      body     => $v->param('body'),
-      user_id  => $c->user->id,
-      group_id => $c->user->group_id,
-      deleted  => 0,
-
-      #permissions => '-rwxr-xr-x',
+      pid         => $c->stash('pid'),
+      domain_id   => 1,                               #now only one domain we have
+      alias       => $vresult->{output}{alias},
+      page_type   => $vresult->{output}{page_type},
+      user_id     => $user->id,
+      group_id    => $user->group_id,
+      changed_by  => $user->id,
+      deleted     => 0,
+      tstamp      => time,
+      hidden      => 0,
+      permissions => '-rwxr-xr-xr',
     );
-  } || $c->stash(error => $@);                       #very rude!!!
-  $c->debug('$error:' . $c->stash('error')) if $c->stash('error');
-
-  my $data = $res->data;
+  } || $c->stash(error => $@);    #very rude!!!
+  if ($c->stash('error')) {
+    $c->app->log->error('$error:' . $c->stash('error'));
+    return $c->render(
+      status => 500,
+      json   => {message => 'Internal Server Error!'}
+    );
+  }
 
   return $c->respond_to(
-    json => {data => $data},
-    html => {data => $data}
+    json => {status => 204},
+    html => {status => 204}       #todo
   );
 }
 
 # Reads a resource from table pages. A naive example.
-sub read {    ##no critic 'Subroutines::ProhibitBuiltinHomonyms'
+sub read {                        ##no critic 'Subroutines::ProhibitBuiltinHomonyms'
   my $c = shift;
   state $table_class = Ado::Model->table_to_class(%t_class_params);
 
@@ -148,7 +171,7 @@ L<Ado::Control::Ado> and implements the following new ones.
 =head2 create
 
 Handles route C</ado-pages/create>.
-Responds to HTTP methods GET and POST.
+Responds to HTTP method POST only (for now).
 Supported MIME types are 'application/json' and 'text/html'.
 
 =head2 list
