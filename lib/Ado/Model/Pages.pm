@@ -130,13 +130,12 @@ sub CHECKS { return $CHECKS }
 
 #returns a list of objects with $self->pid == $self->id
 sub children {
-  my $self = shift;
-  return $self->{children} if $self->{children};
+  my $self  = shift;
   my $class = ref($self);
 
-  #TODO: add permissions etc..
+  #TODO: add more realistic conditions like permissions, published etc..
   state $SQL = $class->SQL('SELECT') . ' WHERE pid=?';
-  return $self->{children} = [$class->query($SQL, $self->id)];
+  return [$class->query($SQL, $self->id)];
 }
 __PACKAGE__->QUOTE_IDENTIFIERS(0);
 
@@ -210,7 +209,9 @@ None.
 
 =head2 children
 
-Returns a list L<Ado::Model::Pages> objects C<WHERE> C<$self-E<gt>pid> == C<$self-E<gt>id>
+Returns a possibly empty ARRAYREF of L<Ado::Model::Pages> objects C<WHERE>
+C<$self-E<gt>pid> == C<$self-E<gt>id>. Note that the result is not cached
+and every call to L</children> will execute a new SQL query.
 
 =head1 GENERATOR
 
