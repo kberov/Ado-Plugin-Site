@@ -8,7 +8,7 @@ Revision history for Ado-Plugin-Site
   - We have draft implementation of /ado-pages/create/:pid.
   - Fixed copy-paste errors where wrongly refering to table pages
     instead to domains.
-  - FIxed typos in documentation.
+  - Fixed typos in documentation.
 
 0.01 2015-03-30
   - Released first ALPHA version to CPAN.
