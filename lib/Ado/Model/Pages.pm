@@ -44,7 +44,7 @@ my $CHECKS = {
     'required' => 1
   },
   'page_type' => {
-    'allow'    => qr/(regular|root|folder)/,
+    'allow'    => qr/(regular|root|folder)/x,
     'required' => 1,
     'defined'  => 1
   },
