@@ -1,5 +1,8 @@
 Revision history for Ado-Plugin-Site
 
+0.02 2015-04-01
+  - Fixed JavaScript error in
+    public/plugins/site/pages.js create_page().
 
 0.02 2015-03-31
   - We have nice implementation of a page-tree at

@@ -30,7 +30,7 @@ function create_page () {
   $mod.modal('show');
   //set the action of the form
   var $form = $('#create_page form');
-  $form.reset();
+
   $form.attr('action',$(this).data('href'));
   //TODO: implement form validation using Semantic UI when documented properly
   $form.on('submit', function (e) {
