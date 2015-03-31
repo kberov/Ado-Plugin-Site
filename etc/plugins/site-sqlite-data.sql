@@ -9,9 +9,12 @@ VALUES(1,'localhost','LocalHost',
 'Localhost - used only for testing purposes or one-site deployments',1,1,'-rwxr-xr-x',1);
 
 -- some default pages
+-- WARNING! this page is not to be used!!! If you request it it will cause an endles loop
+-- and your computer will die in pain. It is just the root of all the pages in the system.
 INSERT OR IGNORE INTO pages
 VALUES(0,0,0,'root','root',1,NULL,0,86400,'-rwxr-xr-xr',3,3,1,1,1,0,1,1,3);
 PRAGMA foreign_keys = ON;
+
 INSERT OR IGNORE INTO pages
 VALUES(1,0,1,'home','root',1,NULL,0,86400,'-rwxr-xr-xr',3,3,0,0,0,0,0,0,3);
 INSERT OR IGNORE INTO pages
