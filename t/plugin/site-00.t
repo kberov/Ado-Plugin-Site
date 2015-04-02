@@ -10,16 +10,13 @@ use Cwd qw(abs_path);
 $ENV{MOJO_HOME} = abs_path dirname(__FILE__);
 $ENV{MOJO_CONFIG} = catfile($ENV{MOJO_HOME}, 'ado.conf');
 
-# Make sure the database file is writable!
-chmod(oct('0600'), catfile($ENV{MOJO_HOME}, 'ado_site.sqlite'))
-  or plan skip_all => 'ado_site.sqlite cannot be made writable!';
 
-
-my $t    = Test::Mojo->new('Ado');
-my $app  = $t->app;
-my $dbix = $app->dbix;
-ok($app->plugin('site'), 'site plugin loaded.');
+my $t     = Test::Mojo->new('Ado');
+my $app   = $t->app;
+my $dbix  = $app->dbix;
 my $class = 'Ado::Plugin::Site';
+
+isa_ok($app->plugin('site'), $class, 'site plugin loaded.');
 isa_ok($class, 'Ado::Plugin');
 
 subtest run_plugin_with_own_ado_config_and_database => sub {
@@ -94,7 +91,5 @@ subtest 'ado-pages' => sub {
     ->element_exists('#p8', 'New "alabala" page is created')
     ->text_is('#p8 .content', 'alabala', 'We have the expected alias');
 };    #end ado-pages
-ok($dbix->query('drop table pages'),   'drop pages');
-ok($dbix->query('drop table domains'), 'drop domains');
-ok($dbix->query('vacuum'),             'vacuum');
+
 done_testing();

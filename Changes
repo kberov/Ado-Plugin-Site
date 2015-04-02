@@ -1,6 +1,10 @@
 Revision history for Ado-Plugin-Site
 
-0.02 2015-04-01
+0.04 2015-04-03
+  - Using ':memory:' database during tests to avoid 
+    file permission propblems. 
+
+0.03 2015-04-01
   - Fixed JavaScript error in
     public/plugins/site/pages.js create_page().
 
