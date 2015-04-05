@@ -2,7 +2,7 @@ package Ado::Plugin::Site;
 use Mojo::Base 'Ado::Plugin';
 File::Spec::Functions->import(qw(catfile catdir));
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub register {
   my ($self, $app, $config) = shift->initialise(@_);

@@ -1,5 +1,12 @@
 Revision history for Ado-Plugin-Site
 
+0.05 2015-04-03
+  - Experimented with testing strategies and SQLite database.
+    Now tests should pass.
+  - Upgraded to Ado 0.87 to use enhanced DBI error reporting
+    during database bootstrapping.
+  - Added '.travis.yml'.
+
 0.04 2015-04-03
   - Using ':memory:' database during tests to avoid 
     file permission propblems. 

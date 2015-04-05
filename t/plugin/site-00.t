@@ -3,17 +3,22 @@ use Test::More;
 use Test::Mojo;
 use File::Spec::Functions qw(splitdir catdir catfile);
 use File::Basename;
+use File::Temp;
 use Cwd qw(abs_path);
 
 
-#use our own ado.conf
+#use our own ado.conf and database
 $ENV{MOJO_HOME} = abs_path dirname(__FILE__);
 $ENV{MOJO_CONFIG} = catfile($ENV{MOJO_HOME}, 'ado.conf');
+my ($temp_dir) = File::Temp->newdir('ado.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
+$ENV{ADO_DB} = catfile($temp_dir, 'ado_site.sqlite');
+my $t   = Test::Mojo->new('Ado');
+my $app = $t->app;
 
+#bootstrap database
+$app->do_sql_file($app->ado_home->rel_file('etc/ado-sqlite-schema.sql'));
+$app->do_sql_file($app->ado_home->rel_file('etc/ado-sqlite-data.sql'));
 
-my $t     = Test::Mojo->new('Ado');
-my $app   = $t->app;
-my $dbix  = $app->dbix;
 my $class = 'Ado::Plugin::Site';
 
 isa_ok($app->plugin('site'), $class, 'site plugin loaded.');

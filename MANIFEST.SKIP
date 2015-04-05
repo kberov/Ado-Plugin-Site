@@ -59,6 +59,9 @@ ado_\w+\d+\.sqlite
 ado_\w+\.sqlite-journal
 ado_\w+\.sqlite-shm
 ado_\w+\.sqlite-wal
+#Avoid Travis
+\.travis\.yml
+
 
 
 # Avoid archives of this distribution

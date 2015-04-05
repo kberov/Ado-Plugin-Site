@@ -12,8 +12,8 @@ my $builder = Ado::BuildPlugin->new(
   configure_requires => {'Module::Build' => 0.42, Ado => 0},
   build_requires => {'Test::More' => 0},
   requires       => {
-    Ado                  => '0.86',
-    'Ado::Plugin::Admin' => '0.12'
+    Ado                  => '0.87',
+    'Ado::Plugin::Admin' => '0.13'
   },
   recursive_test_files => 1,
   meta_merge           => {
