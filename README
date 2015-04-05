@@ -5,7 +5,7 @@ SYNOPSIS
       # in $ENV{MOJO_HOME}/etc/ado.config
       plugins => {
         # other plugins here...
-        'admin'
+        'admin', #required!
         'site',
         # other plugins here...
       }
@@ -14,10 +14,11 @@ SYNOPSIS
        # Access /ado-domains and ado-sites from the main admin menu
 
 DESCRIPTION
-    Ado::Plugin::Site is an Ado plugin that helps you to manage your domains
-    and sites in the control panel provided by Ado::Plugin::Admin.
+    Ado::Plugin::Site is an Ado plugin that provides user interface to
+    manage your domains and sites in the control panel provided by
+    Ado::Plugin::Admin.
 
-    Note: This software is not funtional yet!
+    Note: This software is not functional yet!
 
 METHODS
     Ado::Plugin::Site inherits all methods from Ado::Plugin and implements
@@ -27,6 +28,16 @@ METHODS
       $plugin->register(Ado->new);
 
     Register plugin in Ado application.
+
+CONTINUOUS INTEGRATION
+    We would like to know that our software is always in good health. We
+    count on friendly developers and organizations to install and test it
+    continuously.
+
+    CPAN Testers Reports for Ado::PLugin::Site
+    <http://www.cpantesters.org/distro/A/Ado-Plugin-Site.html>
+
+    Travis-CI <https://travis-ci.org/kberov/Ado-Plugin-Site>
 
 SEE ALSO
     Ado::Plugin::Admin, Ado::Control::Ado::Domains, Ado::Control::Ado::Pages

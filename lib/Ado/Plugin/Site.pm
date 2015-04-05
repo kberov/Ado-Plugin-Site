@@ -53,7 +53,7 @@ Ado::Plugin::Site - Manage your Sites.
   # in $ENV{MOJO_HOME}/etc/ado.config
   plugins => {
     # other plugins here...
-    'admin'
+    'admin', #required!
     'site',
     # other plugins here...
   }
@@ -63,10 +63,10 @@ Ado::Plugin::Site - Manage your Sites.
 
 =head1 DESCRIPTION
 
-L<Ado::Plugin::Site> is an L<Ado> plugin that helps you to manage your domains
-and sites in the control panel provided by L<Ado::Plugin::Admin>.
+L<Ado::Plugin::Site> is an L<Ado> plugin that provides user interface to manage
+your domains and sites in the control panel provided by L<Ado::Plugin::Admin>.
 
-B<Note:> This software is not funtional yet!
+B<Note:> This software is not functional yet!
 
 
 =head1 METHODS
@@ -80,12 +80,32 @@ L<Ado::Plugin> and implements the following new ones.
 
 Register plugin in L<Ado> application.
 
+=head1 CONTINUOUS INTEGRATION
+
+We would like to know that our software is always in good health.
+We count on friendly developers and organizations to install and test it continuously.
+
+L<CPAN Testers Reports for Ado::PLugin::Site|http://www.cpantesters.org/distro/A/Ado-Plugin-Site.html>
+
+L<Travis-CI|https://travis-ci.org/kberov/Ado-Plugin-Site> 
+
+
+=begin html
+
+ <a href="https://travis-ci.org/kberov/Ado-Plugin-Site"><img 
+  src="https://travis-ci.org/kberov/Ado-Plugin-Site.svg?branch=master"
+    ></a><br /><br />
+
+=end html
+
+
 =head1 SEE ALSO
 
 L<Ado::Plugin::Admin>,
 L<Ado::Control::Ado::Domains>, L<Ado::Control::Ado::Pages>
 L<Ado::Plugin>, L<Mojolicious::Guides::Growing>,
 L<Ado::Manual>, L<Mojolicious>,  L<http://mojolicio.us>.
+
 
 =head1 AUTHOR
 
