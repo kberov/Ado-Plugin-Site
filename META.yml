@@ -1,0 +1,45 @@
+---
+abstract: 'Manage your Sites.'
+author:
+  - 'Krasimir Berov <berov@cpan.org>'
+build_requires:
+  Test::More: '0'
+configure_requires:
+  Ado: '0'
+  Module::Build: '0.42'
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4211, CPAN::Meta::Converter version 2.142060'
+keywords:
+  - Ado::Plugin::Site
+  - Mojolicious
+  - realtime
+  - web
+  - ERP
+  - REST
+  - CMS
+  - enterprise
+license: lgpl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: Ado-Plugin-Site
+no_index:
+  namespace:
+    - Ado::Model
+provides:
+  Ado::Control::Ado::Domains:
+    file: lib/Ado/Control/Ado/Domains.pm
+  Ado::Control::Ado::Pages:
+    file: lib/Ado/Control/Ado/Pages.pm
+  Ado::Model::Pages:
+    file: lib/Ado/Model/Pages.pm
+  Ado::Plugin::Site:
+    file: lib/Ado/Plugin/Site.pm
+    version: '0.05'
+requires:
+  Ado: '0.87'
+  Ado::Plugin::Admin: '0.13'
+resources:
+  bugtracker: https://github.com/kberov/Ado-Plugin-Site/issues
+  repository: https://github.com/kberov/Ado-Plugin-Site
+version: '0.05'
