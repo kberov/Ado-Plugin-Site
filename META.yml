@@ -35,11 +35,11 @@ provides:
     file: lib/Ado/Model/Pages.pm
   Ado::Plugin::Site:
     file: lib/Ado/Plugin/Site.pm
-    version: '0.05'
+    version: '0.06'
 requires:
   Ado: '0.87'
   Ado::Plugin::Admin: '0.13'
 resources:
   bugtracker: https://github.com/kberov/Ado-Plugin-Site/issues
   repository: https://github.com/kberov/Ado-Plugin-Site
-version: '0.05'
+version: '0.06'

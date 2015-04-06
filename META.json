@@ -59,7 +59,7 @@
       },
       "Ado::Plugin::Site" : {
          "file" : "lib/Ado/Plugin/Site.pm",
-         "version" : "0.05"
+         "version" : "0.06"
       }
    },
    "release_status" : "stable",
@@ -71,5 +71,5 @@
          "url" : "https://github.com/kberov/Ado-Plugin-Site"
       }
    },
-   "version" : "0.05"
+   "version" : "0.06"
 }
