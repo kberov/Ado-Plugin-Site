@@ -1,5 +1,9 @@
 Revision history for Ado-Plugin-Site
 
+0.06 2015-04-07
+  - Added diagnostics to randomly failing tests.
+  - Added Perl 5.16 for testing in Travis CI.
+
 0.05 2015-04-03
   - Experimented with testing strategies and SQLite database.
     Now using a temporary folder for bootstrapped database.

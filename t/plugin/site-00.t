@@ -15,6 +15,10 @@ $ENV{ADO_DB} = catfile($temp_dir, 'ado_site.sqlite');
 my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
 
+#we run in debug mode so we may have much more log entries to consider
+$app->log->max_history_size(15);
+ok(-e $ENV{ADO_DB}, 'database file was created');
+
 #bootstrap database
 $app->do_sql_file($app->ado_home->rel_file('etc/ado-sqlite-schema.sql'));
 $app->do_sql_file($app->ado_home->rel_file('etc/ado-sqlite-data.sql'));
@@ -24,6 +28,18 @@ my $class = 'Ado::Plugin::Site';
 isa_ok($app->plugin('site'), $class, 'site plugin loaded.');
 isa_ok($class, 'Ado::Plugin');
 
+#do we have the tables created?
+my $dbh = $app->dbix->dbh;
+my ($pages) = $dbh->tables('', 'main', 'pages', 'TABLE');
+is($pages, '"main"."pages"', 'TABLE "pages" was created!') || diagnose_random_fails();
+my ($domains) = $dbh->tables('', 'main', 'domains', 'TABLE');
+is($domains, '"main"."domains"', 'TABLE "domains" was created!')
+  || diagnose_random_fails();
+
+
+sub diagnose_random_fails {
+  diag(join($/, map { join(' ', @$_) } @{$app->log->history}));
+}
 subtest run_plugin_with_own_ado_config_and_database => sub {
 
 #first we need to login!!!
@@ -50,17 +66,20 @@ subtest run_plugin_with_own_ado_config_and_database => sub {
   )->status_is(302)->header_is('Location' => '/ado');
 
 # default ado page
-  $t->get_ok('/ado')->status_is(200)
+  $t->get_ok('/ado')->or(\&diagnose_random_fails)->status_is(200)
+    ->or(\&diagnose_random_fails)
     ->content_like(qr/Controller: ado-default; Action: index/)
     ->element_exists('#admin_menu [href="/ado-domains"]',
     '/ado-domains is in admin_menu')
     ->element_exists('#admin_menu [href="/ado-pages"]', '/ado-pages is in admin_menu');
 
 };    #end run_plugin_with_own_ado_config_and_database
+
 subtest 'ado-pages' => sub {
 
   # request without XMLHttpRequest
-  $t->get_ok('/ado-pages')->status_is(200)
+  $t->get_ok('/ado-pages')->or(\&diagnose_random_fails)->status_is(200)
+    ->or(\&diagnose_random_fails)
     ->content_type_is('text/html;charset=UTF-8', 'html content type')
     ->element_exists('#tab_title',         'We have list title')
     ->element_exists('#tab_body',          'We have list body')
@@ -70,7 +89,8 @@ subtest 'ado-pages' => sub {
     ->element_exists('span[data-pid="1"]', 'We have popup with "add page" menu item');
 
   # request with XMLHttpRequest
-  $t->get_ok('/ado-pages' => {'X-Requested-With' => 'XMLHttpRequest'})->status_is(200)
+  $t->get_ok('/ado-pages' => {'X-Requested-With' => 'XMLHttpRequest'})
+    ->or(\&diagnose_random_fails)->status_is(200)->or(\&diagnose_random_fails)
     ->element_exists_not('#admin_menu', 'admin_menu is not rendered')
     ->content_like(qr|^\<\!--\sstart\sadopages\s--\>|x,
     'only right side with tree via Ajax starts')

@@ -72,6 +72,5 @@ CREATE INDEX IF NOT EXISTS pages_hidden ON pages(hidden);
 /**
 DROP TABLE IF EXISTS domains;
 DROP TABLE IF EXISTS pages;
-
-**/
+*/
 
